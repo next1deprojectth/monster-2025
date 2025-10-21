@@ -20,9 +20,9 @@
       font-family: 'Noto Sans Thai', sans-serif;
       color: #333;
       line-height: 1.6;
-      background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-        url('https://i.ibb.co/9HjR9LvX/IMG-7300.jpg');
+     background-image:
+        linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),
+        url('./bg-nt1.jpg'); 
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -44,8 +44,8 @@
       flex-wrap: wrap;
       gap: 12px;
       padding: 20px 10px;
-      margin-bottom: 30px;
-      background: rgba(255, 255, 255, 0.95);
+      margin: 20px;
+      background: rgba(255, 255, 255, 0.80);
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
@@ -88,12 +88,11 @@
 
     /* Content Container */
     .content-container {
-      background: rgba(255, 255, 255, 0.98);
+      background: rgba(255, 255, 255, 0.80);
       border-radius: 25px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
       padding: 30px;
       margin-bottom: 25px;
-      backdrop-filter: blur(10px);
     }
 
     /* Flex Layout */
@@ -155,7 +154,7 @@
 
     .remaining-red {
       color: #d32f2f;
-      background: rgba(255, 235, 238, 0.8);
+      background: rgba(255, 255, 255, 1.0);
     }
 
     .remaining-green {
@@ -225,7 +224,7 @@
 
     #end-text {
       font-size: 14px;
-      color: #03A9F4;
+      color: #d32f2f;
       margin-top: 15px;
       text-align: center;
       font-weight: 500;
@@ -487,7 +486,7 @@
               </div>
               <div class="stat-block">
                 <div>🎯 เป้าหมาย</div>
-                <span class="stat-number" id="goal-amount">40,000</span>
+                <span class="stat-number" id="goal-amount">20,000</span>
                 <div style="font-size: 14px; color: #666;">บาท</div>
               </div>
             </div>
@@ -504,7 +503,7 @@
               <div class="countdown-closed">กำลังโหลด...</div>
             </div>
 
-            <div id="end-text">สิ้นสุด 26 ต.ค. 2025 เวลา 23:59 น.</div>
+            <div id="end-text">สิ้นสุด 28 ต.ค. 2025 เวลา 23:59 น.</div>
           </div>
         </div>
       </div>
@@ -513,7 +512,7 @@
       <div class="right-panel">
         <div class="content-container">
           <div class="notice">
-            📢 <strong>แจ้งเตือน:</strong> อย่าลืม <a href="https://forms.gle/Rc1V4K1Qt5pubTAW9" target="_blank">ส่งสลิป</a> หลังโอนนะคะ<br>
+            📢 <strong>แจ้งเตือน:</strong> อย่าลืม <a href="https://docs.google.com/forms/d/e/1FAIpQLScerS43KemC7EY-JY_1fNz2Pj4P5jAgkqu46KUGpEt4oIRONQ/viewform" target="_blank">ส่งสลิป</a> หลังโอนนะคะ<br>
             ⏱️ ระบบจะอัปเดตข้อมูลภายใน 5 นาทีหลังส่งสลิป<br>
             ❓ หากไม่พบข้อมูลหรือมีปัญหา แจ้งเราได้ที่ <a href="https://x.com/nt1_project_th?s=21&t=DghsX3sbncYIO7bkKK6z8A" target="_blank">@NexT1DEProjectTH</a>
           </div>
@@ -558,8 +557,8 @@
   <script>
     // Configuration
     const apiURL = "https://script.google.com/macros/s/AKfycbwmhX1tI180NqptU_GKHrpiWolfvFsXZfN9gjCO_tG0jWRYde3D34vDwFpzCqKBPBZ9Mw/exec";
-    const goalAmount = 40000;
-    const endDate = new Date("2025-11-26T23:59:59+07:00");
+    const goalAmount = 20000;
+    const endDate = new Date("2025-10-28T23:59:59+07:00");
 
     let rowsPerPage = getRowsPerPage();
     let currentPage = 1;
@@ -702,9 +701,9 @@
         let statusText = row.status || "";
         let statusDisplay = "";
         if (statusText.toLowerCase().includes("pending")) {
-          statusDisplay = '<span style="color: #ff9800;">⏳ รอตรวจสอบ</span>';
+          statusDisplay = '<span style="color: #ff9800;">รอตรวจสอบ</span>';
         } else if (statusText.toLowerCase().includes("approved")) {
-          statusDisplay = '<span style="color: #4caf50;">✅ ตรวจสอบแล้ว</span>';
+          statusDisplay = '<span style="color: #4caf50;">ตรวจสอบแล้ว</span>';
         } else {
           statusDisplay = '<span style="color: #666;">📝 ' + statusText + '</span>';
         }
