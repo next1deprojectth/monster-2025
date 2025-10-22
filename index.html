@@ -8,13 +8,12 @@
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- FAVICON (แก้ path ให้ตรงไฟล์ของคุณ) -->
-  <!-- <link rel="icon" href="./nt1-project-th-icon.jpg" sizes="32x32" type="image/jpg">
-  <link rel="icon" href="./nt1-project-th-icon.jpg">
-  <link rel="apple-touch-icon" href="./nt1-project-th-icon.jpg">
-  <meta name="theme-color" content="#286acd"> -->
-
   <style>
+    :root{
+      /* ปรับความสูง panel ฝั่งซ้าย/ขวา บน Desktop ได้ที่นี่ */
+      --panel-h: 560px;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -53,13 +52,15 @@
       background: rgba(255,255,255,.8);
       border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,.15);
       padding: 30px; margin-bottom: 25px;
+      /* เตรียมให้ยืดสูงได้ตอน desktop */
+      display: block;
     }
 
     /* Flex Layout */
-    .flex-layout { display: flex; flex-direction: column; gap: 20px; }
+    .flex-layout { display: flex; flex-direction: column; gap: 20px; align-items: stretch; }
 
     /* Progress Section */
-    .donation-section { text-align: center; }
+    .donation-section { text-align: center; display:flex; flex-direction:column; height:100%; }
     .progress-stats {
       display: flex; justify-content: space-around; margin-bottom: 25px; gap: 20px; flex-wrap: wrap;
     }
@@ -97,16 +98,21 @@
     }
     @keyframes shimmer { 0% { transform: translateX(-100%);} 100% { transform: translateX(100%);} }
 
-    /* ===== Countdown (วัน : ชั่วโมง : นาที : วินาที) - ไม่มีแอนิเมชัน ===== */
+    /* ===== Countdown (วัน : ชั่วโมง : นาที : วินาที) ===== */
     .countdown-status {
       text-align: center; padding: 24px 18px;
       background: linear-gradient(135deg,#e3f2fd,#e8eaf6);
       border-radius: 20px; margin: 20px 0;
+      /* กัน overflow ในจอเล็ก */
+      overflow: hidden;
     }
     .countdown-title {
       font-size: 18px; color: #1976d2; margin-bottom: 12px; font-weight: 600;
     }
-    .countdown-wrapper { display: inline-flex; align-items: stretch; gap: 12px; }
+    .countdown-wrapper { 
+      display: inline-flex; align-items: stretch; gap: 12px; 
+      max-width: 100%; justify-content: center;
+    }
 
     .time-box {
       min-width: 86px; padding: 12px 12px; background: #fff; border-radius: 16px;
@@ -131,22 +137,39 @@
     /* Notice Box */
     .notice {
       background: linear-gradient(135deg,#e3f2fd,#e8f5e9);
-      border: 2px solid #90caf9; border-radius: 15px; padding: 20px; margin-bottom: 25px;
+      border: 2px solid #90caf9; border-radius: 15px; padding: 20px; margin-bottom: 16px;
       font-size: 15px; color: #444; line-height: 1.8; box-shadow: 0 3px 10px rgba(0,0,0,.05);
     }
     .notice a { color: #1976d2; text-decoration: none; font-weight: 600; border-bottom: 2px solid transparent; transition: border-color .3s; }
     .notice a:hover { border-bottom-color: #1976d2; }
 
+    /* Table Area (fixed-height + scroll) */
+    .table-area{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+      min-height: 0; /* สำคัญให้ลูก overflow ได้ */
+    }
+    .table-wrapper{
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+      background: #fff;
+    }
+
     /* Table Styles */
     #donationTable {
-      width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; margin-top: 20px;
-      border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,.08);
+      width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; 
     }
-    #donationTable th {
+    #donationTable thead th {
+      position: sticky; top: 0; z-index: 1;
       background: linear-gradient(135deg,#4fc3f7,#29b6f6); color: #fff; padding: 15px 10px; text-align: center;
       font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .5px;
     }
-    #donationTable td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+    #donationTable td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f0f0f0; font-size: 14px; background:#fff; }
     #donationTable tbody tr { transition: all .3s ease; }
     #donationTable tbody tr:hover { background: #f8f9fa; transform: scale(1.01); box-shadow: 0 2px 5px rgba(0,0,0,.05); }
     #donationTable tbody tr:last-child td { border-bottom: none; }
@@ -160,13 +183,13 @@
 
     /* Call to Action */
     #call-to-action {
-      text-align: center; color: #286acd; margin-top: 25px; font-size: 18px; font-weight: 600;
-      padding: 15px; background: linear-gradient(135deg,#e3f2fd,#e8eaf6); border-radius: 15px; display: none;
+      text-align: center; color: #286acd; font-size: 18px; font-weight: 600;
+      padding: 12px; background: linear-gradient(135deg,#e3f2fd,#e8eaf6); border-radius: 15px; display: none;
     }
 
     /* Pagination */
     .pagination {
-      margin-top: 30px; text-align: center; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      text-align: center; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
     }
     .pagination button {
       font-family: 'Noto Sans Thai', sans-serif; background: linear-gradient(135deg,#42a5f5,#66bb6a); color: #fff;
@@ -176,19 +199,45 @@
     .pagination button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.2); }
     .pagination button.active { background: linear-gradient(135deg,#1976d2,#1565c0); transform: scale(1.1); box-shadow: 0 4px 15px rgba(25,118,210,.4); }
 
+    /* Bottom Big Image */
+    .bottom-hero{
+      max-width: 1200px;
+      margin: 10px auto 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,.15);
+    }
+    .bottom-hero img{
+      display:block; width:100%; height:auto;
+    }
+
     /* Responsive */
     @media (min-width: 768px) {
-      .flex-layout { flex-direction: row; align-items: start; gap: 30px; }
-      .left-panel, .right-panel { flex: 1; }
+      .flex-layout { flex-direction: row; align-items: stretch; gap: 30px; }
+      .left-panel, .right-panel { flex: 1; display:flex; }
+      /* ทำให้สองกล่องสูงเท่ากัน */
+      .left-panel .content-container,
+      .right-panel .content-container{
+        height: var(--panel-h);
+        display:flex;
+        flex-direction: column;
+      }
+      /* จำกัดพื้นที่ table ให้พอดีกับความสูงกล่องขวา */
+      .right-panel .content-container { gap: 16px; }
     }
+
+    /* Mobile tuning: ป้องกัน digit ทะลุกรอบ */
     @media (max-width: 480px) {
       body { padding: 10px 5px; }
       .toc-bar { gap: 8px; padding: 15px 8px; }
       .toc-bar button { font-size: 13px; padding: 10px 16px; }
       .content-container { padding: 20px 15px; }
       .stat-block { min-width: 120px; padding: 12px; }
-      #donationTable th, #donationTable td { padding: 8px 5px; font-size: 12px; }
-      .time-box { min-width: 72px; padding: 10px 10px; border-radius: 14px; }
+
+      .countdown-wrapper { gap: 8px; }
+      .time-box { min-width: 64px; padding: 10px 8px; border-radius: 14px; }
+      .digit { font-size: clamp(20px,8.5vw,32px); letter-spacing: .5px; }
+      .separator { font-size: clamp(18px,7.5vw,28px); }
     }
 
     /* Loading Animation (ตาราง) */
@@ -271,34 +320,44 @@
             ❓ หากไม่พบข้อมูลหรือมีปัญหา แจ้งเราได้ที่ <a href="https://x.com/nt1_project_th?s=21&t=DghsX3sbncYIO7bkKK6z8A" target="_blank">@NexT1DEProjectTH</a>
           </div>
 
-          <!-- Table -->
-          <table id="donationTable">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>วันที่โอน</th>
-                <th>นามแฝง</th>
-                <th>ยอด (บาท)</th>
-                <th>สถานะ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="5" id="loadingRow" style="text-align:center; padding: 50px;">
-                  ⏳ กำลังโหลดข้อมูล...
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Table Area: fixed height + internal scroll -->
+          <div class="table-area">
+            <div class="table-wrapper">
+              <table id="donationTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>วันที่โอน</th>
+                    <th>นามแฝง</th>
+                    <th>ยอด (บาท)</th>
+                    <th>สถานะ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="5" id="loadingRow" style="text-align:center; padding: 50px;">
+                      ⏳ กำลังโหลดข้อมูล...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <!-- Call to action -->
-          <div id="call-to-action"></div>
+            <!-- Call to action -->
+            <div id="call-to-action"></div>
 
-          <!-- Pagination -->
-          <div class="pagination" id="pagination"></div>
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Bottom big image from project -->
+  <div class="bottom-hero">
+    <!-- แก้ path รูปให้ตรงกับไฟล์ในโปรเจกต์คุณ -->
+    <img src="./promote4.png" alt="NexT1DE Project">
   </div>
 
   <script>
@@ -402,11 +461,13 @@
       })
       .catch(err => {
         console.error("Error fetching data:", err);
-        document.getElementById("loadingRow").innerHTML = `
-          <td colspan="5" style="color:red; text-align:center; padding:50px;">
-            ❌ เกิดข้อผิดพลาด: ไม่สามารถโหลดข้อมูลได้<br>
-            <small>กรุณารีเฟรชหน้าใหม่</small>
-          </td>
+        document.querySelector("#donationTable tbody").innerHTML = `
+          <tr>
+            <td colspan="5" style="color:red; text-align:center; padding:50px;">
+              ❌ เกิดข้อผิดพลาด: ไม่สามารถโหลดข้อมูลได้<br>
+              <small>กรุณารีเฟรชหน้าใหม่</small>
+            </td>
+          </tr>
         `;
       });
 
@@ -524,7 +585,7 @@
     }
 
     function scrollToTable() {
-      document.getElementById("donationTable").scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector(".table-area").scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Resize handler
