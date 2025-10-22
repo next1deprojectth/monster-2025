@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>สถานะและตารางยอดโดเนท</title>
+  <title>Donate NT1 Project</title>
 
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FAVICON (แก้ path ให้ตรงไฟล์ของคุณ) -->
-  <link rel="icon" href="./favicon.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <meta name="theme-color" content="#286acd">
+  <!-- <link rel="icon" href="./nt1-project-th-icon.jpg" sizes="32x32" type="image/jpg">
+  <link rel="icon" href="./nt1-project-th-icon.jpg">
+  <link rel="apple-touch-icon" href="./nt1-project-th-icon.jpg">
+  <meta name="theme-color" content="#286acd"> -->
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -218,7 +218,7 @@
               </div>
               <div class="stat-block">
                 <div>🎯 เป้าหมาย</div>
-                <span class="stat-number" id="goal-amount">35,000</span>
+                <span class="stat-number" id="goal-amount">25,000</span>
                 <div style="font-size:14px;color:#666;">บาท</div>
               </div>
             </div>
@@ -304,7 +304,7 @@
   <script>
     // ===== Config =====
     const apiURL = "https://script.google.com/macros/s/AKfycbwmhX1tI180NqptU_GKHrpiWolfvFsXZfN9gjCO_tG0jWRYde3D34vDwFpzCqKBPBZ9Mw/exec";
-    const goalAmount = 35000;
+    const goalAmount = 25000;
     const endDate = new Date("2025-10-28T23:59:59+07:00"); // Asia/Bangkok
 
     let rowsPerPage = getRowsPerPage();
@@ -346,11 +346,7 @@
       `;
       document.title = 'ปิดโดเนทแล้ว • สถานะและตารางยอดโดเนท';
     }
-
-    function updateTabTitle(d, h, m, s) {
-      document.title = `เหลือ ${pad2(d)}:${pad2(h)}:${pad2(m)}:${pad2(s)} • สถานะและตารางยอดโดเนท`;
-    }
-
+    
     function tickCountdown() {
       const now = new Date();
       const diffSec = Math.floor((endDate - now) / 1000);
@@ -370,8 +366,6 @@
       setUnit(document.getElementById('cd-hh'), pad2(hours));
       setUnit(document.getElementById('cd-mm'), pad2(minutes));
       setUnit(document.getElementById('cd-ss'), pad2(seconds));
-
-      updateTabTitle(days, hours, minutes, seconds);
     }
 
     function startCountdown() {
